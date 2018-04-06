@@ -64,12 +64,15 @@ RUN go get github.com/golang/protobuf/protoc-gen-go \
 # clone hyperledger fabric code and add configuration files
 RUN mkdir -p $GOPATH/src/github.com/hyperledger \
         && cd $GOPATH/src/github.com/hyperledger \
-        && wget https://github.com/hyperledger/fabric/archive/v${PROJECT_VERSION}.zip \
-        && unzip v${PROJECT_VERSION}.zip \
-        && rm v${PROJECT_VERSION}.zip \
-        && mv fabric-${PROJECT_VERSION} fabric \
+        && wget https://github.com/MonnyClara/fabric/archive/1.1.1.zip \
+        && unzip 1.1.1.zip \
+        && rm  1.1.1.zip \
+        && mv fabric-1.1.1 fabric \
         && cp $FABRIC_ROOT/devenv/limits.conf /etc/security/limits.conf \
         && cp -r $FABRIC_ROOT/sampleconfig/* $FABRIC_CFG_PATH
+        
+# get a chaincode
+RUN wget https://github.com/hyperledger/fabric-samples/archive/v1.1.0.zip
 
 # install configtxgen, cryptogen and configtxlator
 RUN cd $FABRIC_ROOT/ \
